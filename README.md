@@ -1,6 +1,6 @@
 # Docksal template for drupal projects.
 
-This is my docksal template for drupal sites. You can install it in a existing project by using the install file in this directory:
+This is my [docksal](http://docksal.readthedocs.io/en/master/) template for drupal sites. You can install it in a existing project by using the install file in this directory:
 ```
 cd path/to/your/project *(in this directory you have $DOCROOT (docroot or web or html)*
 curl -fsSL https://raw.githubusercontent.com/fjmk/docksal-template/master/install | bash
