@@ -6,7 +6,7 @@ cd path/to/your/project *(in this directory you have $DOCROOT (docroot or web or
 curl -fsSL https://raw.githubusercontent.com/fjmk/docksal-template/master/install | bash
 
 # if you want to use tagged branches, drupal7 or drupal8, you add a bash argument:
-curl -fsSL https://raw.githubusercontent.com/fjmk/docksal-template/master/install | bash -s drupal8
+curl -fsSL https://raw.githubusercontent.com/fjmk/docksal-template/drupal8/install | bash -s drupal8
 ```
 
 
