@@ -27,6 +27,11 @@ fi
 
 git clone -q --branch $BRANCH https://github.com/fjmk/docksal-template .docksal
 rm -rf .docksal/.git .docksal/install
+if [[ -e config ]]; then
+  echo-yellow "\nThere is a config directory already; not overriding."
+else
+  mv .docksal/config .
+fi
 
 echo-green ".docksal template is downloaded."
 echo
