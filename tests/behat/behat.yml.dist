@@ -1,0 +1,26 @@
+imports:
+  - behat.common.yml
+
+# Local overrides to the default profile
+docker:
+  extensions:
+    Behat\MinkExtension:
+      # URL of the site when accessed locally.
+      base_url: http://web
+      # Configure browser to be used. Browser must be available on wd_host.
+      # Stick with chrome by default. It's 2x faster than firefox or phantomjs (your results may vary).
+      browser_name: chrome
+      selenium2:
+        wd_host: http://browser:4444/wd/hub
+        capabilities: { "browser": "chrome", "version": "*" }
+    Drupal\DrupalExtension:
+      drupal:
+        # Local site docroot.
+        drupal_root: '/var/www/docroot'
+      drush:
+        # Local site docroot.
+        root: '/var/www/docroot'
+      region_map:
+        left sidebar: "#sidebar-first"
+        content: "#content"
+

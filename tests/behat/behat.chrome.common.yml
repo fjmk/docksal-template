@@ -1,0 +1,39 @@
+# Default profile.
+# Common settings for all profiles
+default:
+  suites:
+    default:
+      contexts:
+        - Drupal\DrupalExtension\Context\DrupalContext
+        - Drupal\DrupalExtension\Context\MinkContext
+        - Drupal\DrupalExtension\Context\MessageContext
+        - Drupal\DrupalExtension\Context\DrushContext
+        - FeatureContext:
+            parameters:
+              screenshot_dir: %paths.base%/screenshots
+  extensions:
+    DMore\ChromeExtension\Behat\ServiceContainer\ChromeExtension: ~
+    Behat\MinkExtension:
+      goutte: ~
+      chrome: ~
+      # Use goutte (basic PHP browser, super fast) as the default driver.
+      default_session: chrome
+      # For real browser testing and tests requiring JS use selenium2 driver.
+      # Tag features/scenarious with @javascript to use the selenium2 driver.
+      javascript_session: chrome
+    Drupal\DrupalExtension:
+      blackbox: ~
+      drush: ~
+      # API driver [drupal|drush]
+      api_driver: "drupal"
+      # Map template regions.
+      region_map:
+        header: "#header"
+        content: "#content"
+        footer: "#footer"
+      # Map selectors.
+      selectors:
+        message_selector: '#messages'
+        error_message_selector: '#messages .messages.error'
+        success_message_selector: '#messages .messages.status'
+

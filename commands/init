@@ -72,7 +72,7 @@ copy_settings_file()
 # Initialize local settings files
 init_settings ()
 {
-	copy_settings_file "${DOCKSAL_PATH}/.docksal/example.settings.${DOCKSAL_ENVIRONMENT}.php" "${SITEDIR_PATH}/settings.local.php"
+	copy_settings_file "${DOCKSAL_PATH}/.docksal/templates/example.settings.${DOCKSAL_ENVIRONMENT}.php" "${SITEDIR_PATH}/settings.local.php"
 }
 
 # Fix file/folder permissions
