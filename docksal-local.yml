@@ -30,4 +30,20 @@ services:
     labels:
       - io.docksal.virtual-host=mailhog.${VIRTUAL_HOST}
     user: root
-    working_dir: /mailhog
+
+
+  # selenium chrome browser for behat javascript scenarios
+  browser:
+    hostname: browser
+    image: selenium/standalone-chrome:3.4
+    dns:
+      - ${DOCKSAL_DNS1}
+      - ${DOCKSAL_DNS2}
+
+  # chome-headless server for DMore/behat-chrome-skeleton
+  chrome:
+    hostname: chrome
+    image: alpeware/chrome-headless-stable
+    dns:
+      - ${DOCKSAL_DNS1}
+      - ${DOCKSAL_DNS2}

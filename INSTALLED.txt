@@ -1,0 +1,47 @@
+Installed a new docksal template for your project.
+
+Structure of .docksal directory
+.docksal
+total 24
+ - docksal.env            # docksal production environment
+ - docksal-local.env.dist # cp .docksal/docksal-local.env.dist .docksal/docksal-local.env
+ - docksal-local.yml.dist # cp .docksal/docksal-local.env.yml .docksal/docksal-local.yml
+
+ -- commands
+  \- behat                # run behat tests (template stock drupal 7)
+   - phpcs                # run phpcs tests
+   - env                  # show env variables in cli containers
+   - init                 ## init example ## change this ##
+   - mydb                 #quick database snapshot for large databases
+   - test                 ## Test site installation ## change this ##  
+
+ -- etc
+  \- phpadmin.config.php #auto login phpmyadmin
+  \-- mysql
+    \- my.cnf            #customize mysql database
+  \-- php
+    \- php-cli.ini       #customize php-cli
+     - php.ini           #customize php-fpm  (before version 2.0)
+     - php-fpm.conf      #customize php-fpm  (from version 2.0+)
+
+ -- templates
+  \- example.settings.local.php  #used in init command 
+  
+
+The drush directory
+drush
+  - aliases.drushrc.php  # 'default' alias defined, add your extra aliases
+  
+The tests directory
+tests
+-- behat
+ \- composer.json        # with extra requirements
+  - behat.yml.dist       # copy this to behat.yml
+                         # (use: fin behat --tags d7)
+  - behat.chrome.yml     # test everything against real chrome browser 
+                         # (use: fin behat --tags d7 --config behat.chrome.yml)
+
+TODO
+ - add baskstopjs tests?
+ - add wraith tests
+ 

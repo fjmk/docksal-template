@@ -11,12 +11,13 @@ curl -fsSL https://raw.githubusercontent.com/fjmk/docksal-template/drupal8/insta
 
 
 ### Files in .docksal/
-- **docksal.env** *# docksal enviroment file. Make some customizations, in this file or in .docksal-local.env:*
-  - CLI_IMAGE='docksal/cli:1.3-php5'
+- **docksal.env** *# docksal enviroment file. Make some customizations in this file for production*
+  - CLI_IMAGE='docksal/cli:2.0-php5.6'
   - VIRTUAL_HOST=your-project.docksal
   - MYSQL_BACKUP="${HOME}/backups/your-project.sql.gz"
-- **docksal-local.yml**    *# Add phpmyadmin and mailhog containers ot this project*
-- **example.settings.local.php**    *# Example settings.local.php file. Is copied in init command if not exists in $DOCROOT}/sites/default/*
+- **docksal.local.env.dist** *to make some customizations in this file for testenvironment* ```cp .docksal/docksal-local.env.dist .docksal/docksal-local.env```
+- **docksal-local.yml.dist**    *# Add phpmyadmin and mailhog containers ot this project* ```cp .docksal/docksal-local.yml.dist .docksal/docksal-local.yml```
+- **templates/example.settings.local.php**    *# Example settings.local.php file. Is copied in init command if not exists in $DOCROOT}/sites/default/*
 
 ### Custom commands:
 - **env** *# show local environment as seen in fin command*
@@ -31,6 +32,20 @@ curl -fsSL https://raw.githubusercontent.com/fjmk/docksal-template/drupal8/insta
 ### Customize mysql in .docksal/etc/mysql/
 - **my.cnf**
 
-### Customize php in .docksal/etc/etc/php
-- php-cli.ini
-- php.ini *# use mailhog for drupal e-mails*
+### Customize php in .docksal/etc/php
+- php-cli.ini *# customize php-cli*
+- php.ini *# customize php-fpm  (before version 2.0)*
+- php-fpm.conf *# customize php-fpm  (from version 2.0+)
+
+The drush directory
+drush
+  - aliases.drushrc.php  *# 'default' alias defined, add your extra aliases*
+
+The $DOCROOT/tests/behat directory
+- composer.json *# with extra requirements*
+- behat.yml.dist *# copy this to behat.yml* (use: fin behat --tags d7)
+- behat.chrome.yml *# test everything against real chrome browser* (use: fin behat --tags d7 --config behat.chrome.yml)
+
+TODO
+ - add baskstopjs visual regression tests?
+ - add wraith visual regression tests
