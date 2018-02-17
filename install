@@ -28,8 +28,17 @@ else
 fi
 
 git clone -q --branch $BRANCH https://github.com/fjmk/docksal-template .docksal
+if [ ! -d tests ]; then
 mv .docksal/tests .
-mv .docksal/drush .
+fi
+if [ ! -d drush ]; then
+  mv .docksal/drush .
+else
+  if [ ! -d "drush/aliases/aliases.drushrc.php"]; then
+    mkdir -p drush/aliases
+    cp .docksal/drush/aliases/aliases.drushrc.php drush/aliases/aliases.drushrc.php
+  fi
+fi
 rm -rf .docksal/.git .docksal/install
 
 echo-green ".docksal template is downloaded."
