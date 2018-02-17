@@ -12,6 +12,8 @@ echo-green () { echo -e "${green}$1${NC}"; }
 echo-green-bg () { echo -e "${green_bg}$1${NC}"; }
 echo-yellow () { echo -e "${yellow}$1${NC}"; }
 
+env
+
 # Is .docksal installed already?
 if [[ -e .docksal ]]; then
   echo-red "\nThere is a .docksal directory already; not downloading\n"
@@ -26,17 +28,25 @@ else
 fi
 
 git clone -q --branch $BRANCH https://github.com/fjmk/docksal-template .docksal
-rm -rf .docksal/.git .docksal/install
-if [[ -e config ]]; then
-  echo-yellow "\nThere is a config directory already; not overriding."
-else
-  mv .docksal/config .
+if [ ! -d tests ]; then
+mv .docksal/tests .
 fi
+if [ ! -d drush ]; then
+  mv .docksal/drush .
+else
+  if [ ! -d "drush/aliases/aliases.drushrc.php"]; then
+    mkdir -p drush/aliases
+    cp .docksal/drush/aliases/aliases.drushrc.php drush/aliases/aliases.drushrc.php
+  fi
+fi
+rm -rf .docksal/.git .docksal/install
 
 echo-green ".docksal template is downloaded."
 echo
 echo-green-bg "Probably you want to customize .docksal/docksal.env"
-echo-green-bg "... or add .docksal/docksal-local.env"
+echo-green-bg "... or cp .docksal/docksal-local.env"
+echo
+echo-green-bg "In production: rm .docksal/docksal-local.yml .docksal/docksal-local.env"
 echo
 echo-green-bg "Change .docksal/commands/init and .docksal/example.settings.local.php if needed."
 echo
