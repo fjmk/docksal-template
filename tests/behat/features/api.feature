@@ -16,7 +16,7 @@ Feature: DrupalContext
   Scenario: Target links within table rows
     Given I am logged in as a user with the "administrator" role
     When I am at "admin/structure/types"
-    And I click "manage fields" in the "Article" row
+    And I click "Manage fields" in the "Article" row
     Then I should be on "admin/structure/types/manage/article/fields"
     And I should see text matching "Add new field"
 
@@ -24,7 +24,7 @@ Feature: DrupalContext
   Scenario: Target links within table rows
     Given I am logged in as a user with the "administrator" role
     When I am at "admin/structure/types"
-    And I click "manage fields" in the "Article" row
+    And I click "Manage fields" in the "Article" row
     Then I should be on "admin/structure/types/manage/article/fields"
     And I should see text matching "Add field"
 
@@ -220,38 +220,10 @@ Feature: DrupalContext
     When I am on the homepage
     Then I should see the text "Sun, 07/27/2014 - 00:03"
 
-  @d8
-  Scenario: Node hooks are functioning
-    Given "article" content:
-      | title        | body        | published on       | status | promote |
-      | Test article | PLACEHOLDER | 04/27/2013 11:11am |      1 |       1 |
-    When I am on the homepage
-    Then I should see the text "Sat, 04/27/2013 - 11:11"
-
   @d7 @d8
   Scenario: Node edit access by administrator
     Given I am logged in as a user with the "administrator" role
     Then I should be able to edit an "article"
-
-  @d8
-  Scenario: User hooks are functioning
-    Given users:
-      | First name | Last name | E-mail               |
-      | Joe        | User      | joe.user@example.com |
-    And I am logged in as a user with the "administrator" role
-    When I visit "admin/people"
-    Then I should see the link "Joe User"
-
-  @d8
-  Scenario: Term hooks are functioning
-    Given "tags" terms:
-      | Label     |
-      | Tag one   |
-      | Tag two   |
-    And I am logged in as a user with the "administrator" role
-    When I go to "admin/structure/taxonomy/manage/tags/overview"
-    Then I should see "Tag one"
-    And I should see "Tag two"
 
   @d7 @d8
   Scenario: Log in as a user with specific permissions
