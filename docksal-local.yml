@@ -1,0 +1,49 @@
+# Extra services
+
+version: "2.1"
+
+services:
+  # PHPMYADMIN
+  phpmyadmin:
+    hostname: phpmyadmin
+    image: phpmyadmin/phpmyadmin
+    volumes:
+      - ${PROJECT_ROOT}/.docksal/etc/phpadmin.config.php:/etc/phpmyadmin/config.user.inc.php
+    labels:
+      - io.docksal.virtual-host=phpadmin.${VIRTUAL_HOST}
+    environment:
+#      - PMA_ARBITRARY=1
+      - PMA_HOST=db
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-root}
+      - MYSQL_USER=${MYSQL_USER:-user}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD:-user}
+      - MYSQL_DATABASE=${MYSQL_DATABASE:-default}
+
+  mail:
+    hostname: mail
+    image: mailhog/mailhog
+    expose:
+      - "80"
+    environment:
+      - MH_API_BIND_ADDR=0.0.0.0:80
+      - MH_UI_BIND_ADDR=0.0.0.0:80
+    labels:
+      - io.docksal.virtual-host=mailhog.${VIRTUAL_HOST}
+    user: root
+
+
+  # selenium chrome browser for behat javascript scenarios
+  browser:
+    hostname: browser
+    image: selenium/standalone-chrome:3.4
+    dns:
+      - ${DOCKSAL_DNS1}
+      - ${DOCKSAL_DNS2}
+
+  # chome-headless server for DMore/behat-chrome-skeleton
+  chrome:
+    hostname: chrome
+    image: alpeware/chrome-headless-stable
+    dns:
+      - ${DOCKSAL_DNS1}
+      - ${DOCKSAL_DNS2}
