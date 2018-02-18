@@ -31,12 +31,19 @@ git clone -q --branch $BRANCH https://github.com/fjmk/docksal-template .docksal
 if [ ! -d tests ]; then
 mv .docksal/tests .
 fi
+# add drupal8 config dir if not exists
+if [[ -e config ]]; then
+  echo-yellow "\nThere is a config directory already; not overriding."
+else
+  mv .docksal/config .
+fi
+# add docksal alias if not exists (drush 9 installed with drupal8 composer install)
 if [ ! -d drush ]; then
   mv .docksal/drush .
 else
-  if [ ! -d "drush/aliases/aliases.drushrc.php"]; then
-    mkdir -p drush/aliases
-    cp .docksal/drush/aliases/aliases.drushrc.php drush/aliases/aliases.drushrc.php
+  if [ ! -d "drush/sites/docksal.site.yml"]; then
+    mkdir -p drush/sites
+    cp .docksal/drush/sites/docksal.site.yml drush/sites/docksal.site.yml
   fi
 fi
 rm -rf .docksal/.git .docksal/install
