@@ -1,4 +1,4 @@
 # File: site.yml
 default:
   root: /var/www/web
-  uri: http://jedeklerkd8.docksal
+  uri: http://your-project.docksal
