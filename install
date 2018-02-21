@@ -12,7 +12,7 @@ echo-green () { echo -e "${green}$1${NC}"; }
 echo-green-bg () { echo -e "${green_bg}$1${NC}"; }
 echo-yellow () { echo -e "${yellow}$1${NC}"; }
 
-env
+#env
 
 # Is .docksal installed already?
 if [[ -e .docksal ]]; then
