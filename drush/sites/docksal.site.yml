@@ -1,4 +1,4 @@
 # File: site.yml
 default:
-  root: /var/www/web
+  root: /var/www/docroot
   uri: http://your-project.docksal
