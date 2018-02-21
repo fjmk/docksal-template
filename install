@@ -28,20 +28,27 @@ else
 fi
 
 git clone -q --branch $BRANCH https://github.com/fjmk/docksal-template .docksal
+echo-green-bg "copy .docksal/docksal.env to .docksal/docksal-local.env"
+
+cp .docksal/docksal.env .docksal/docksal-local.env
 if [ ! -d tests ]; then
-mv .docksal/tests .
+  echo-green-bg "copy tests directory to PROJECT_ROOT"
+  mv .docksal/tests .
 fi
 # add drupal8 config dir if not exists
 if [[ -e config ]]; then
   echo-yellow "\nThere is a config directory already; not overriding."
 else
+  echo-green-bg "Create config directory in PROJECT_ROOT"
   mv .docksal/config .
 fi
 # add docksal alias if not exists (drush 9 installed with drupal8 composer install)
 if [ ! -d drush ]; then
+  echo-green-bg "Moving drush aliases to PROJECT_ROOT"
   mv .docksal/drush .
 else
   if [ ! -d "drush/sites/docksal.site.yml"]; then
+    echo-green-bg "copy site alias to drush directory"
     mkdir -p drush/sites
     cp .docksal/drush/sites/docksal.site.yml drush/sites/docksal.site.yml
   fi
@@ -50,10 +57,8 @@ rm -rf .docksal/.git .docksal/install
 
 echo-green ".docksal template is downloaded."
 echo
-echo-green-bg "Probably you want to customize .docksal/docksal.env"
-echo-green-bg "... or cp .docksal/docksal-local.env"
+echo-yellow "Probably you want to customize .docksal/docksal.env"
+echo-yellow "... or .docksal/docksal-local.env"
 echo
-echo-green-bg "In production: rm .docksal/docksal-local.yml .docksal/docksal-local.env"
-echo
-echo-green-bg "Change .docksal/commands/init and .docksal/example.settings.local.php if needed."
+echo-yellow "Change .docksal/commands/init[-site] and .docksal/example.settings.local.php if needed."
 echo
