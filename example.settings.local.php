@@ -124,6 +124,16 @@ $settings['file_chmod_file'] = 0666;
 # File system settings.
 $config['system.file']['path']['temporary'] = '/tmp';
 
+// Set your config directory outside of your docroot for security
+$config_directories[CONFIG_SYNC_DIRECTORY] = '../config/sync';
+
+// Configure config split directory
+$config['config_split.config_split.blacklist']['status'] = TRUE;
+$config['config_split.config_split.dev']['status'] = TRUE;
+$config['config_split.config_split.staging']['status'] = TRUE;
+$config['config_split.config_split.live']['status'] = FALSE;
+
+
 # Reverse proxy configuration (Docksal vhost-proxy)
 if (PHP_SAPI !== 'cli') {
   $settings['reverse_proxy'] = TRUE;
