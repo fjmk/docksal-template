@@ -5,7 +5,7 @@
 #echo $DOCROOT
 #echo $MYSQL_BACKUP
 
-DB_ID="$(fin ps |grep _mydb_ |awk '{print $1}')"
+DB_ID="${COMPOSE_PROJECT_NAME_SAFE}_db_1"
 
 #-------------------------- Helper functions --------------------------------
 
@@ -21,7 +21,7 @@ echo-green () { echo -e "${green}$1${NC}"; }
 echo-green-bg () { echo -e "${green_bg}$1${NC}"; }
 echo-yellow () { echo -e "${yellow}$1${NC}"; }
 
-
+# env |sort
 
 # Import db from local backup file
 import_mydb ()
@@ -29,7 +29,11 @@ import_mydb ()
   if [ ! -f $MYSQL_BACKUP ]; then
     help_mydb
   fi
-  fin db import --progress $MYSQL_BACKUP
+  if [[ "$MYSQL_BACKUP" == *.gz ]]; then
+    zcat $MYSQL_BACKUP | fin db import --progress
+  else
+    fin db import --progress $MYSQL_BACKUP
+  fi
 }
 
 # Create snapshot from db
